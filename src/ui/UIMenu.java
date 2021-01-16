@@ -2,6 +2,7 @@ package ui;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import model.Doctor;
 import model.Patient;
@@ -20,20 +21,20 @@ public class UIMenu {
 
     public static void showMenu(){
 
-        JOptionPane.showMessageDialog(null,"Welcome to Hospital");
+        System.out.println("\nWelcome to Hospital");
 
         int response = 0;
         String responseInput;
 
         do {
-            responseInput = JOptionPane.showInputDialog(null,
-                    "Select an option" +
-                            "\n1. Doctor" +
-                            "\n2. Patient" +
-                            "\n0. Exit"
-                    );
 
-            response = Integer.parseInt(responseInput);
+            System.out.println("Select an option");
+            System.out.println("1. Doctor");
+            System.out.println("2. Patient");
+            System.out.println("0. Exit");
+
+            Scanner sc = new Scanner(System.in);
+            response = Integer.parseInt(sc.nextLine());
 
             switch (response){
                 case 1:
@@ -45,10 +46,10 @@ public class UIMenu {
                     authUser(2);
                     break;
                 case 0:
-                    JOptionPane.showMessageDialog(null, "Thanks for your visit!");
+                    System.out.println("thaks for your visit");
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Select a correct option");
+                    System.out.println("select a correct option");
             }
         } while (response != 0);
     }
@@ -71,7 +72,9 @@ public class UIMenu {
 
         do {
 
-            String email = JOptionPane.showInputDialog("Enter your email");
+            System.out.println("\nEnter your email:");
+            Scanner sc = new Scanner(System.in);
+            String email = sc.nextLine();
 
             // Validación Doctor
             if (userType == 1 ){
@@ -81,7 +84,7 @@ public class UIMenu {
                         doctorLogged = d;
                         UIDoctorMenu.showDoctorMenu();
                     } else {
-                        JOptionPane.showMessageDialog(null, "Doctor not found");
+                        System.out.println("doctor not found");
                         showMenu();
                     }
                 }
@@ -95,7 +98,7 @@ public class UIMenu {
                         patientLogged = p;
                         UIPatientMenu.showPatientMenu();
                     } else {
-                        JOptionPane.showMessageDialog(null, "Patient not found");
+                        System.out.println("patient not found");
                         showMenu();
                     }
                 }

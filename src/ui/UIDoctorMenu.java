@@ -84,19 +84,21 @@ public class UIDoctorMenu {
     }
 
     private static void checkDoctorAvailableAppointments(Doctor doctor){
-        if (doctor.getAvailableAppointment().size() > 0
+        if (doctor.getAvailableAppointments().size() > 0
         && !doctorsAvailableAppointments.contains(doctor)) {
             doctorsAvailableAppointments.add(doctor);
         }
     }
 
+
     private static void showScheduledAppointments() {
         System.out.println("Your shedule is: ");
-        for (int i=0; i < UIMenu.doctorLogged.getAvailableAppointment().size(); i++){
-            System.out.println(UIMenu.doctorLogged.getAvailableAppointment().get(i).getDate()
-                    + " " + UIMenu.doctorLogged.getAvailableAppointment().get(i).getTime());
+        for (int i=0; i < UIMenu.doctorLogged.getAvailableAppointments().size(); i++){
+            System.out.println(UIMenu.doctorLogged.getAvailableAppointments().get(i).getDate()
+                    + " " + UIMenu.doctorLogged.getAvailableAppointments().get(i).getTime());
         }
 
     }
+
 
 }

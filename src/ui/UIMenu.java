@@ -76,6 +76,8 @@ public class UIMenu {
             Scanner sc = new Scanner(System.in);
             String email = sc.nextLine();
 
+            System.out.println(email);
+
             // Validación Doctor
             if (userType == 1 ){
                 for (Doctor d: doctors) {

@@ -7,43 +7,55 @@ import java.util.Date;
 
 public class Doctor extends User {
 
+    String speciality;
     private ArrayList<AvailableAppointment> availableAppointments = new ArrayList<>();
 
     public Doctor(String name, String email){
-        super(name, email);
+        super(name,email);
+        this.speciality = speciality;
     }
 
     public void addAvailableAppointment(String date, String time){
         availableAppointments.add(new Doctor.AvailableAppointment(date,time));
     }
 
-    public ArrayList<AvailableAppointment> getAvailableAppointment(){
+    public ArrayList<AvailableAppointment> getAvailableAppointments(){
         return availableAppointments;
     }
 
-    public static class AvailableAppointment {
+    // clase anidada
+    public static class AvailableAppointment{
         private int id;
-        private String date;
+        private Date date;
         private String time;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         public AvailableAppointment(String date, String time){
-            this.date = date;
+            try {
+                this.date = format.parse(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             this.time = time;
         }
 
-        public int getId() {
+        public int getId(){
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(int id){
             this.id = id;
         }
 
-        public String getDate() {
+        public Date getDate(String DATE) {
             return date;
         }
 
-        public void setDate(String date) {
+        public String getDate() {
+            return format.format(date);
+        }
+
+        public void setDate(Date date) {
             this.date = date;
         }
 
@@ -54,7 +66,6 @@ public class Doctor extends User {
         public void setTime(String time) {
             this.time = time;
         }
-
     }
 
 

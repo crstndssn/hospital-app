@@ -10,24 +10,24 @@ public class UIDoctorMenu {
     public static ArrayList<Doctor> doctorsAvailableAppointments = new ArrayList<>();
 
     public static void showDoctorMenu(){
-
         int response = 0;
         do {
-
-            System.out.println("\nWelcome " + UIMenu.doctorLogged.getName());
-            System.out.println("1. Add Available Appointment");
+            System.out.println("\n\n");
+            System.out.println("Doctor");
+            System.out.println("Welcome " + UIMenu.doctorLogged.getName());
+            System.out.println("1. Add Available Appointments");
             System.out.println("2. My Scheduled Appointments");
             System.out.println("0. Logout");
 
             Scanner sc = new Scanner(System.in);
-            response = Integer.parseInt(sc.nextLine());
+            response = Integer.valueOf(sc.nextLine());
 
             switch (response) {
                 case 1:
                     showAddAvailableAppointmentsMenu();
                     break;
                 case 2:
-                    showScheduledAppointments();
+                    //checkDoctorAvailableAppointments();
                     break;
                 case 0:
                     UIMenu.showMenu();
@@ -35,70 +35,59 @@ public class UIDoctorMenu {
             }
 
         } while (response != 0);
-
-        System.out.println(response);
-
     }
 
-    private static void showAddAvailableAppointmentsMenu(){
+    private static void showAddAvailableAppointmentsMenu() {
         int response = 0;
         do {
-            System.out.println("\nSelect Month:");
-            for (int i = 0; i < 3; i++){
+            System.out.println();
+            System.out.println(":: Add Available Appointment");
+            System.out.println(":: Select Month");
+
+            for (int i = 0; i < 3; i++) {
                 int j = i + 1;
                 System.out.println(j + ". " + UIMenu.MONTHS[i]);
             }
-            System.out.println("0. Return");
+
+            System.out.println("0. Rreturn");
 
             Scanner sc = new Scanner(System.in);
-            response = Integer.parseInt(sc.nextLine());
-
+            response = Integer.valueOf(sc.nextLine());
 
             if (response > 0 && response < 4){
+                // 1, 2, 3
+                int monthSelected = response;
+                System.out.println(monthSelected + ". " + UIMenu.MONTHS[monthSelected-1]);
 
-                // insert date
-                int monthSelect = response;
-                System.out.println(monthSelect + ". " + UIMenu.MONTHS[monthSelect-1]);
-                System.out.println("Insert the date available [dd/mm/yyyy]:");
+                // Agregar fecha
+                System.out.println("Insert the date available: [dd/mm/yyyy]");
                 String date = sc.nextLine();
-                System.out.println("The date " + date + ", is correct? \n1. si\2. no");
-                int responseDate = Integer.parseInt(sc.nextLine());
+                System.out.println("Your date is: " + date + "\n1. Correct" + "\n2. Change Date");
+                int responseDate = Integer.valueOf(sc.nextLine());
                 if (responseDate == 2) continue;
 
-                // insert time
                 int responseTime = 0;
                 String time = "";
-                do {
-                    System.out.println("insert time [00:00]:");
+                do{
+                    System.out.println("Insert the time available for date: " + date + " [16:00]");
                     time = sc.nextLine();
-                    System.out.println("your time is " + time + ", is correct \n1. si\n2. no");
-                    responseTime = Integer.parseInt(sc.nextLine());
-                } while(responseTime == 2);
+                    System.out.println("Your time is: " + time + "\n1. Correct" + "\n2. Change Date");
+                    responseTime = Integer.valueOf(sc.nextLine());
+                } while (responseTime == 2);
 
-                System.out.println("Your appointment is for " + date + " at " + time);
                 UIMenu.doctorLogged.addAvailableAppointment(date,time);
                 checkDoctorAvailableAppointments(UIMenu.doctorLogged);
+
             }
 
-        } while (response!=0);
+        } while (response != 0);
     }
 
     private static void checkDoctorAvailableAppointments(Doctor doctor){
         if (doctor.getAvailableAppointments().size() > 0
-        && !doctorsAvailableAppointments.contains(doctor)) {
+        && !doctorsAvailableAppointments.contains(doctor)){
             doctorsAvailableAppointments.add(doctor);
         }
     }
-
-
-    private static void showScheduledAppointments() {
-        System.out.println("Your shedule is: ");
-        for (int i=0; i < UIMenu.doctorLogged.getAvailableAppointments().size(); i++){
-            System.out.println(UIMenu.doctorLogged.getAvailableAppointments().get(i).getDate()
-                    + " " + UIMenu.doctorLogged.getAvailableAppointments().get(i).getTime());
-        }
-
-    }
-
 
 }

@@ -69,4 +69,20 @@ public class Doctor extends User {
     }
 
 
+    // Sobre escritura de método, poliformismo
+    @Override
+    public String toString() {
+        return "model.Doctor{" +
+                "speciality='" + speciality + '\'' +
+                ", availableAppointments=" + availableAppointments.toString() +
+                '}';
+    }
+
+    // Clases abstractas
+    @Override
+    public void showDataUser() {
+        System.out.println("Empleado del Hospital Cruz Roja");
+        System.out.println("Departamento: Cancerología");
+    }
+
 }

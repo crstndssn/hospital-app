@@ -1,10 +1,10 @@
 package model;
 
-public class User {
-
+public abstract class User {
     private int id;
     private String name;
     private String email;
+    private String address;
     private String phoneNumber;
 
     public User(String name, String email){
@@ -20,20 +20,28 @@ public class User {
         this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setName(){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(String s) {
+    public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhoneNumber() {
@@ -43,5 +51,18 @@ public class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    @Override
+    public String toString() {
+        return "model.User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
+
+    public abstract void showDataUser();
 
 }

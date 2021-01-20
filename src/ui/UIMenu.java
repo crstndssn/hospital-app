@@ -1,40 +1,34 @@
 package ui;
 
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import model.Doctor;
 import model.Patient;
-import model.User;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UIMenu {
 
     public static final String[] MONTHS = {
-            "Enero", "Febrero", "Marzo", "Abril", "Mayo",
-            "Junio", "Julio", "Agosto", "Septiembre", "Octubre",
-            "Noviembre", "Diciembre"
+            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+            "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciemnre"
     };
 
     public static Doctor doctorLogged;
     public static Patient patientLogged;
 
     public static void showMenu(){
-
-        System.out.println("\nWelcome to Hospital");
+        System.out.println("Welcome to My Appointments");
+        System.out.println("Seleccione la opción deseada");
 
         int response = 0;
-        String responseInput;
 
         do {
-
-            System.out.println("Select an option");
             System.out.println("1. Doctor");
             System.out.println("2. Patient");
             System.out.println("0. Exit");
 
             Scanner sc = new Scanner(System.in);
-            response = Integer.parseInt(sc.nextLine());
+            response = Integer.valueOf(sc.nextLine());
 
             switch (response){
                 case 1:
@@ -46,11 +40,12 @@ public class UIMenu {
                     authUser(2);
                     break;
                 case 0:
-                    System.out.println("thaks for your visit");
+                    System.out.println("Thank you for the visit");
                     break;
                 default:
-                    System.out.println("select a correct option");
+                    System.out.println("Select the correct answer");
             }
+
         } while (response != 0);
     }
 
@@ -59,54 +54,82 @@ public class UIMenu {
         // userType = 2 Patient
 
         ArrayList<Doctor> doctors = new ArrayList<Doctor>();
-        doctors.add(new Doctor("Alejandro", "doctor@mail.com"));
-        doctors.add(new Doctor("Maria", "maria@mail.com"));
-        doctors.add(new Doctor("Rocio", "rocio@mail.com"));
+        doctors.add(new Doctor("Alejandro Martínez", "alejandro@gmail.com"));
+        doctors.add(new Doctor("Karen Sosa", "karen@gmail.com"));
+        doctors.add(new Doctor("Rocio Losada", "rocio@gmail.com"));
 
         ArrayList<Patient> patients = new ArrayList<Patient>();
-        patients.add(new Patient("Laura", "laura@mail.com"));
-        patients.add(new Patient("Camila", "camila@mail.com"));
-        patients.add(new Patient("Camilo", "patient@mail.com"));
+        patients.add(new Patient("María Salgado", "maria@mail.com"));
+        patients.add(new Patient("Paula Cuellar", "paula@mail.com"));
+        patients.add(new Patient("José Gutierrez", "jose@mail.com"));
 
         boolean emailCorrect = false;
 
         do {
-
-            System.out.println("\nEnter your email:");
+            System.out.println("Insert your email: [aaa@mail.com]");
             Scanner sc = new Scanner(System.in);
             String email = sc.nextLine();
 
-            System.out.println(email);
-
-            // Validación Doctor
-            if (userType == 1 ){
+            // Validacion doctor
+            if (userType == 1){
                 for (Doctor d: doctors) {
                     if (d.getEmail().equals(email)){
                         emailCorrect = true;
+                        // Obtener el usuario logeado
                         doctorLogged = d;
+                        // showDoctorMenu
                         UIDoctorMenu.showDoctorMenu();
-                    } else {
-                        System.out.println("doctor not found");
-                        showMenu();
                     }
                 }
             }
 
-            // Validacion Patient
+            // Validación paciente
             if (userType == 2){
                 for (Patient p: patients){
                     if (p.getEmail().equals(email)){
                         emailCorrect = true;
+                        // Obtener el paciente logeado
                         patientLogged = p;
+                        // showPatientMenu
                         UIPatientMenu.showPatientMenu();
-                    } else {
-                        System.out.println("patient not found");
-                        showMenu();
                     }
                 }
             }
 
         } while (!emailCorrect);
+
+    }
+
+    static void showPatientMenu(){
+
+        int response = 0;
+
+        do {
+            System.out.println("/n/n");
+            System.out.println("model.Patient");
+            System.out.println("1. Book Appointment");
+            System.out.println("2. My Appointments");
+            System.out.println("0. Return");
+
+            Scanner sc = new Scanner(System.in);
+            response = Integer.valueOf(sc.nextLine());
+
+            switch (response) {
+                case 1:
+                    System.out.println("::Book an appointment");
+                    for (int i = 1; i <= 3; i++) {
+                        System.out.println(i + ". " + MONTHS[i]);
+                    }
+                    break;
+                case 2:
+                    System.out.println("::My Appointments");
+                    break;
+                case 0:
+                    showMenu();
+                    break;
+            }
+        } while (response != 0);
+
     }
 
 }
